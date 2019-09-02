@@ -259,6 +259,18 @@ view: site_accounts {
     sql: ${TABLE}.Status_ID ;;
   }
 
+
+  dimension: account_status {
+    type: string
+    sql: case when ${status_id}=1 then 'Open'
+          when ${status_id}=2 then 'Closed'
+          when ${status_id}=3 then 'Archived'
+
+          else '0' end ;;
+
+
+  }
+
   dimension: supply_discount_type {
     hidden: yes
     type: number

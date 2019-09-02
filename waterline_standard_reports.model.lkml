@@ -194,7 +194,7 @@ from:site_accounts
        join: swd_charges {
        relationship: one_to_many
        sql_on:  ${account_summary.account_id} = ${swd_charges.site_account_id} ;;
-      fields: [swd_charges.swd_charge_type]
+      fields: [swd_charges.swd_charge_type, swd_charges.rateable_value]
      }
 
    join: SWD_meter_based_charges {
