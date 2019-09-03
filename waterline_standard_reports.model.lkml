@@ -16,6 +16,13 @@ from:site_accounts
     sql_on: ${site.site_id} = ${account_summary.site_id} ;;
   }
 
+  join: site_status_current {
+    view_label: "Site Status"
+    relationship: one_to_one
+    sql_on: ${site_status_current.site_id} = ${site.site_id} ;;
+    fields: [site_status_current.status_name]
+  }
+
   join: company_details {
   from: co_details
   relationship: many_to_one
@@ -46,7 +53,7 @@ from:site_accounts
     from: water_meters
     relationship:  one_to_one
     sql_on: ${meters.meter_id} =  ${site_account_meter_audits.meter_id} ;;
-    fields: [meters.serial_no,meters.meter_size]
+    fields: [meters.serial_no,meters.meter_size, meters.return_to_sewer]
   }
 
 
