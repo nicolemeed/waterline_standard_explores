@@ -5,10 +5,10 @@ include: "*.view.lkml"
 
 
 explore: account_summary  {
-  description: "All prices are for the current year (19/20). The base table for this explore is the site_accounts table. Any sites, meters or tariffs which are not linked to an account will not appear in results."
+  description: "All prices are for the current year (20/21). The base table for this explore is the site_accounts table. Any sites, meters or tariffs which are not linked to an account will not appear in results."
 from:site_accounts
-  sql_always_where: (${year_range.year_id} = 22 OR ${year_range.year_id} IS NULL)
-  AND (${waste_year_range.year_id} = 22 OR ${waste_year_range.year_id} IS NULL)
+  sql_always_where: (${year_range.year_id} = 23 OR ${year_range.year_id} IS NULL)
+  AND (${waste_year_range.year_id} = 23 OR ${waste_year_range.year_id} IS NULL)
   ;;
 
   join: site {
@@ -161,14 +161,14 @@ from:site_accounts
   join: supply_standing_charge_prices {
     from: standing_charge_prices
     relationship: many_to_one
-    sql_on: ${site_account_meter_audits.supply_standing_charge_id} = ${supply_standing_charge_prices.standing_charge_id}  and ${site_account_meter_audits.has_standing_charge} = 'true' and ${supply_standing_charge_prices.year_id}=22 ;;
+    sql_on: ${site_account_meter_audits.supply_standing_charge_id} = ${supply_standing_charge_prices.standing_charge_id}  and ${site_account_meter_audits.has_standing_charge} = 'true' and ${supply_standing_charge_prices.year_id}=23 ;;
     fields: [supply_standing_charge_prices.supply_cost]
   }
 
   join: waste_standing_charge_prices {
     from: standing_charge_prices
     relationship: many_to_one
-    sql_on: ${site_account_meter_audits.waste_standing_charge_id} = ${waste_standing_charge_prices.standing_charge_id} and ${site_account_meter_audits.has_standing_charge} = 'true' and  ${waste_standing_charge_prices.year_id}=22 ;;
+    sql_on: ${site_account_meter_audits.waste_standing_charge_id} = ${waste_standing_charge_prices.standing_charge_id} and ${site_account_meter_audits.has_standing_charge} = 'true' and  ${waste_standing_charge_prices.year_id}=23 ;;
     fields: [waste_standing_charge_prices.waste_cost]
   }
 
@@ -188,7 +188,7 @@ from:site_accounts
 
   join: mdd_tariff_prices {
     relationship: many_to_many
-    sql_on: ${account_summary.mddtariff_id} = ${mdd_tariff_prices.mdd_tariff_id} and ${mdd_tariff_prices.year_id} = 22;;
+    sql_on: ${account_summary.mddtariff_id} = ${mdd_tariff_prices.mdd_tariff_id} and ${mdd_tariff_prices.year_id} = 23;;
     fields: [cost]
   }
 
@@ -207,7 +207,7 @@ from:site_accounts
    join: SWD_meter_based_charges {
   from: water_co_swd_meter_charges
        relationship: one_to_many
-       sql_on: ${swd_charges.meter_size_id} = ${SWD_meter_based_charges.meter_size_id} and ${SWD_meter_based_charges.water_co_id} = case when ${account_summary.validate_against_id} = 2 then ${account_summary.wholesaler_waste_co_id} else ${account_summary.waste_co_id} end and ${SWD_meter_based_charges.year_id} = 22;;
+       sql_on: ${swd_charges.meter_size_id} = ${SWD_meter_based_charges.meter_size_id} and ${SWD_meter_based_charges.water_co_id} = case when ${account_summary.validate_against_id} = 2 then ${account_summary.wholesaler_waste_co_id} else ${account_summary.waste_co_id} end and ${SWD_meter_based_charges.year_id} = 23;;
 
     fields: [SWD_meter_based_charges.swd_meter_size,SWD_meter_based_charges.charge_value]
     }
@@ -215,7 +215,7 @@ from:site_accounts
 join: SWD_RV_based_charges {
   from: water_co_swd_charges_rv
        relationship: one_to_many
-       sql_on: ${swd_charges.rv_charge_name} = ${SWD_RV_based_charges.charge_name} and ${SWD_RV_based_charges.water_co_id} = case when ${account_summary.validate_against_id} = 2 then ${account_summary.wholesaler_waste_co_id} else ${account_summary.waste_co_id} end and ${SWD_RV_based_charges.year_id} = 22 ;;
+       sql_on: ${swd_charges.rv_charge_name} = ${SWD_RV_based_charges.charge_name} and ${SWD_RV_based_charges.water_co_id} = case when ${account_summary.validate_against_id} = 2 then ${account_summary.wholesaler_waste_co_id} else ${account_summary.waste_co_id} end and ${SWD_RV_based_charges.year_id} = 23 ;;
 
     fields: [SWD_RV_based_charges.charge_name,SWD_RV_based_charges.charge_per_rv,SWD_RV_based_charges.charge_perc_decimal,SWD_RV_based_charges.description]
 }
@@ -223,7 +223,7 @@ join: SWD_RV_based_charges {
 join: SWD_banded_charges {
   from: bands
   relationship: one_to_many
-      sql_on: ${swd_charges.band} = ${SWD_banded_charges.band_nm} and ${SWD_banded_charges.wco_id} = case when ${account_summary.validate_against_id} = 2 then ${account_summary.wholesaler_waste_co_id} else ${account_summary.waste_co_id} end and ${SWD_banded_charges.year_id} = 22;;
+      sql_on: ${swd_charges.band} = ${SWD_banded_charges.band_nm} and ${SWD_banded_charges.wco_id} = case when ${account_summary.validate_against_id} = 2 then ${account_summary.wholesaler_waste_co_id} else ${account_summary.waste_co_id} end and ${SWD_banded_charges.year_id} = 23;;
     fields: [SWD_banded_charges.price, SWD_banded_charges.band_des, SWD_banded_charges.band_nm]
 }
 
