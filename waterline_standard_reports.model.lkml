@@ -55,7 +55,7 @@ from:site_accounts
     from: water_meters
     relationship:  one_to_one
     sql_on: ${meters.meter_id} =  ${site_account_meter_audits.meter_id} ;;
-    fields: [meters.serial_no,meters.meter_size, meters.return_to_sewer,meters.gis_x,meters.gis_y,meters.location]
+    fields: [meters.serial_no,meters.meter_size, meters.return_to_sewer,meters.gis_x,meters.gis_y,meters.location,meters.yearly_volume_estimate]
   }
 
 
