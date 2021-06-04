@@ -9,6 +9,7 @@ explore: account_summary  {
 from:site_accounts
   sql_always_where: (${year_range.year_id} = 23 OR ${year_range.year_id} IS NULL)
   AND (${waste_year_range.year_id} = 23 OR ${waste_year_range.year_id} IS NULL)
+  and ${company_details.active_to_date} is null
   ;;
 
   join: site {
@@ -27,6 +28,7 @@ from:site_accounts
   from: co_details
   relationship: many_to_one
     sql_on: ${site.co_id} = ${company_details.co_id} ;;
+
     fields: [company_details.co_nm,company_details.co_id]
   }
 
@@ -238,6 +240,7 @@ join: SWD_banded_charges {
 explore: site_details {
 
   from: site
+  sql_always_where: ${company_details.active_to_date} is null ;;
 
     join: company_details {
       from: co_details
