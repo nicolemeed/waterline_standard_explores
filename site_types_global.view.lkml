@@ -19,6 +19,7 @@ view: site_types_global {
 
   dimension: site_type_global_id {
     hidden: yes
+    primary_key: yes
     type: number
     sql: ${TABLE}.SiteTypeGlobalID ;;
   }
